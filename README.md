@@ -20,7 +20,7 @@ To use the script, you first need a browser extension called **Tampermonkey**.
    - [Other browsers](https://www.tampermonkey.net/)
 
 2. Install the Script:  
-    Once you have Tampermonkey, simply go to the Release page on GitHub and click on https://github.com/SrCratier/Wplace_VoX-Overlay-Pro/releases/download/v4.9.1/WplacePro-VoX.user.js or the **WplacePro-VoX.user.js** file.  
+    Once you have Tampermonkey, simply go to the Release page on GitHub and click on https://github.com/Lamechial/Wplace_VoX-Overlay-Pro/releases/download/v4.9.2/WplacePro-VoX.user-English.js or the **WplacePro-VoX.user.English.js** file.  
     Tampermonkey will open automatically and ask you to install the script.
 
 ---
