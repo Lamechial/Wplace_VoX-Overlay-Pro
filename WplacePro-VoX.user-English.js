@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Wplace Overlay Pro Modified By @SrCratier
+// @name         Wplace Overlay Pro (@SrCratier)
 // @namespace    http://tampermonkey.net/
 // @version      4.9.2
 // @description  Overlays tiles on wplace.live. Can also resize, and color-match your overlay to wplace's palette. Make sure to comply with the site's Terms of Service, and rules! This script is not affiliated with Wplace.live in any way, use at your own risk. This script is not affiliated with TamperMonkey. The author of this userscript is not responsible for any damages, issues, loss of data, or punishment that may occur as a result of using this script. This script is provided "as is" under GPLv3.
-// @author       shinkonet (Modified by @SrCratier)
+// @author       shinkonet (Modified by @SrCratier, Translated by Lamechial)
 // @updateURL    https://raw.githubusercontent.com/Lamechial/Wplace_VoX-Overlay-Pro/refs/heads/main/WplacePro-VoX.user-English.js
 // @downloadURL  https://raw.githubusercontent.com/Lamechial/Wplace_VoX-Overlay-Pro/refs/heads/main/WplacePro-VoX.user-English.js
 // @match        https://wplace.live/*
