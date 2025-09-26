@@ -16,7 +16,7 @@ To use the script, you first need a browser extension called **Tampermonkey**.
 **IMPORTANT: FOR PHONES, IT ONLY WORKS WITH THE MICROSOFT EDGE BROWSER - ADD THE EXTENSION FROM THE MENU**
 
    - [Tampermonkey for Chrome](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
-   - [Tampermonkey for Firefox](https://addons.mozilla.org/es/firefox/addon/tampermonkey/)
+   - [Tampermonkey for Firefox](https://addons.mozilla.org/firefox/addon/tampermonkey/)
    - [Other browsers](https://www.tampermonkey.net/)
 
 2. Install the Script:  
