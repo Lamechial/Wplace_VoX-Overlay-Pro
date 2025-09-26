@@ -4,8 +4,8 @@
 // @version      4.9.2
 // @description  Overlays tiles on wplace.live. Can also resize, and color-match your overlay to wplace's palette. Make sure to comply with the site's Terms of Service, and rules! This script is not affiliated with Wplace.live in any way, use at your own risk. This script is not affiliated with TamperMonkey. The author of this userscript is not responsible for any damages, issues, loss of data, or punishment that may occur as a result of using this script. This script is provided "as is" under GPLv3.
 // @author       shinkonet (Modified by @SrCratier)
-// @updateURL    
-// @downloadURL  
+// @updateURL    https://github.com/Lamechial/Wplace_VoX-Overlay-Pro
+// @downloadURL  https://github.com/Lamechial/Wplace_VoX-Overlay-Pro
 // @match        https://wplace.live/*
 // @license      GPLv3
 // @grant        GM_setValue
@@ -135,7 +135,7 @@
     // ------------------------------- LIST OF DONORS ----------------------------------------
 
 const DONATORS = [
-{ name: "Nobody yet...", contribution: "- 0 USD   :(" },
+{ name: "Nobody yet...", contribution: "0 USD   :(" },
 
 ];
 
@@ -575,13 +575,13 @@ function forceTileRefresh() {
                     img.src = url.toString();
                 }
             });
-            showToast('Lienzo actualizado.', 1500);
+            showToast('Canvas updated.', 1500);
             clearInterval(refreshInterval);
         } else {
             retries++;
             if (retries >= MAX_RETRIES) {
                 clearInterval(refreshInterval);
-                showToast('Error: No se pudo encontrar el lienzo del juego para refrescar.', 3000);
+                showToast('Error: Could not find a game canvas to refresh.', 3000);
             }
         }
     };
@@ -635,7 +635,7 @@ function showToast(message, duration = 3000) {
                     await saveConfig(['overlays']); clearOverlayCache();
                     config.autoCapturePixelUrl = false; await saveConfig(['autoCapturePixelUrl']);
                     const c = extractPixelCoords(ov.pixelUrl);
-                    showToast(`Ancla establecida para "${ov.name}": chunk ${c.chunk1}/${c.chunk2} en (${c.posX}, ${c.posY}).`);
+                    showToast(`Anchor set for "${ov.name}": chunk ${c.chunk1}/${c.chunk2} at (${c.posX}, ${c.posY}).`);
                 }
             }
             if (config.isSettingCopyPoint) {
@@ -648,7 +648,7 @@ function showToast(message, duration = 3000) {
                 };
                 const pointBeingSet = config.isSettingCopyPoint;
                 config[pointBeingSet === 'A' ? 'copyPointA' : 'copyPointB'] = point;
-                showToast(`Punto ${pointBeingSet} fijado en (${point.absX}, ${point.absY})`);
+                showToast(`Point ${pointBeingSet} set at (${point.absX}, ${point.absY})`);
                 config.isSettingCopyPoint = null;
                 const keysToSave = ['copyPointA', 'copyPointB', 'isSettingCopyPoint'];
                 if (config.copyPointA && config.copyPointB) {
@@ -658,9 +658,9 @@ function showToast(message, duration = 3000) {
                     if (config.showOverlay) {
                         config.showOverlay = false;
                         keysToSave.push('showOverlay');
-                        showToast('Área de previsualización activada. Overlay desactivado.');
+                        showToast('Preview area enabled. Overlay disabled.');
                     } else {
-                        showToast('Área de previsualización activada.');
+                        showToast('Preview area enabled.');
                     }
                     clearOverlayCache();
                 }
@@ -1161,7 +1161,7 @@ function injectStyles() {
 
 panel.innerHTML = `
   <div class="op-header" id="op-header">
-    <h3>VoX - Overlay Pro<span style="font-size: 13px; color: var(--op-muted); font-weight: 500; margin-left: 8px;">-_-/</span></h3>
+    <h3>Overlay Pro<span style="font-size: 13px; color: var(--op-muted); font-weight: 500; margin-left: 8px;"></span></h3>
     <div class="op-header-actions">
         <button class="op-hdr-btn" id="op-refresh-btn" title="Refresh overlay view">⟲</button>
         <button class="op-hdr-btn" id="op-main-settings-btn" title="Settings">⚙️</button>
@@ -1212,12 +1212,12 @@ panel.innerHTML = `
                     <div>
                         <div id="op-image-source">
                             <div class="op-row">
-                                <label style="width: 60px;">Imagen</label>
+                                <label style="width: 60px;">Image</label>
                                 <input type="text" class="op-input op-grow" id="op-image-url" placeholder="Paste an image link">
                                 <button class="op-button" id="op-fetch">Load</button>
                             </div>
                             <div class="op-preview" id="op-dropzone" style="margin-top:8px;">
-                                <div class="op-drop-hint">Drag here or click to search.</div>
+                                <div class="op-drop-hint">Drag here or click to upload an image file.</div>
                                 <input type="file" id="op-file-input" accept="image/*" style="display:none">
                             </div>
                         </div>
@@ -1268,7 +1268,7 @@ panel.innerHTML = `
                     </div>
                      <div class="op-section" style="margin-top: 8px;">
                          <div class="op-row space">
-                             <span>Fine Adjustment:</span>
+                             <span>Fine-Tuning:</span>
                              <div class="op-row">
                                 <input type="radio" id="op-nudge-target-a" name="op-nudge-target" value="A" checked>
                                 <label for="op-nudge-target-a">Point A</label>
@@ -1285,7 +1285,7 @@ panel.innerHTML = `
                     </div>
                     <div class="op-row space" style="margin-top: 4px;">
                         <button class="op-button" id="op-copy-preview-toggle" style="flex:1;">View Area</button>
-                        <button class="op-button" id="op-copy-create" style="flex:1;" title="Detect and download an image of the selected area.">Detect and Download</button>
+                        <button class="op-button" id="op-copy-create" style="flex:1;" title="Scan and download an image of the selected area.">Scan and Download</button>
                     </div>
                 </div>
 
@@ -1305,10 +1305,10 @@ panel.innerHTML = `
     settingsModal.id = 'op-main-settings-modal';
     settingsModal.className = 'op-modal';
     settingsModal.innerHTML = `
-        <h3>Ajustes Generales</h3>
+        <h3>General Settings</h3>
         <div class="op-settings-row">
-            <span>Tema de la Interfaz</span>
-            <button class="op-button" id="op-theme-toggle">Light / Dark</button>
+            <span>Interface Theme</span>
+            <button class="op-button" id="op-theme-toggle">☀️ / 🌙</button>
         </div>
         <div class="op-settings-row">
             <label>Panel Transparency</label>
@@ -1343,16 +1343,16 @@ panel.innerHTML = `
         <span>Color Progress</span>
         <div class="op-ca-settings-wrap">
             <button class="op-ca-settings-btn" id="op-ca-highlight-btn" title="Highlight missing pixels">🎯</button>
-            <button class="op-ca-settings-btn" id="op-ca-settings-btn" title="Progress Settings">⚙️</button>
+            <button class="op-ca-settings-btn" id="op-ca-settings-btn" title="Progress Panel Settings">⚙️</button>
             <button class="op-ca-settings-btn" id="op-ca-toggle-collapse" title="Collapse/Expand" style="margin-left: 5px;">▾</button>
         </div>
     </div>
     <div class="op-ca-list" id="op-ca-list-content">
-        <span class="op-muted" style="text-align: center; padding: 20px 0;">Select an overlay and click “Show Progress.”.</span>
+        <span class="op-muted" style="text-align: center; padding: 20px 0;">Select an overlay and click “Show Progress.”</span>
     </div>
     <div class="op-ca-footer" id="op-ca-footer">
         <div class="op-ca-total-progress">
-            <span>Total Progress:</span>
+            <span>Total Percentage Completed:</span>
             <span id="op-ca-total-percentage">0%</span>
         </div>
         <div class="op-ca-main-actions">
@@ -1390,14 +1390,14 @@ panel.innerHTML = `
     caSettingsModal.id = 'op-ca-settings-modal';
     caSettingsModal.className = 'op-modal';
     caSettingsModal.innerHTML = `
-        <h3>Ajustes de Progreso</h3>
+        <h3>Progress Panel Settings<h3>
         <div class="op-ca-controls" style="display: flex; flex-direction: column; gap: 12px;">
             <div class="op-ca-control-row">
-                <label>Sort by quantity</label>
+                <label>Sort by pixel quantity</label>
                 <div class="op-switch" id="op-ca-sort-toggle"></div>
             </div>
             <div class="op-ca-control-row">
-                <label>Highlight available</label>
+                <label>Highlight available colors</label>
                 <div class="op-switch" id="op-ca-highlight-toggle"></div>
             </div>
         </div>
@@ -1454,7 +1454,7 @@ function rebuildOverlayListUI() {
         <input type="radio" name="op-active" ${isActive ? 'checked' : ''} title="Set as active"/>
         <input type="checkbox" ${ov.enabled ? 'checked' : ''} title="Activate/Deactivate"/>
         <div class="op-item-name" title="${title}">${title}</div>
-        <button class="op-icon-btn" title="Remove overlay">🗑️</button>
+        <button class="op-icon-btn" title="Delete overlay">🗑️</button>
       </div>
     `;
 
@@ -1996,7 +1996,7 @@ function addEventListeners() {
         const isPaletteOpen = document.querySelectorAll('[id^="color-"]').length > 0;
 
         if (!isPaletteOpen && !config.caHighlightEnabled) {
-            showToast("Open the game's color palette to use this feature.", 3500);
+            showToast("Open the in-game color palette to use this feature.", 3500);
             return;
         }
 
@@ -2123,7 +2123,7 @@ async function updateOverlayProgress() {
     if (mainActions) mainActions.style.display = 'none';
 
     if (!ov || !ov.imageBase64 || !ov.pixelUrl) {
-        panelContent.innerHTML = `<span class="op-muted" style="text-align: center; padding: 20px 0;">Select an overlay with an image and set anchor.</span>`;
+        panelContent.innerHTML = `<span class="op-muted" style="text-align: center; padding: 20px 0;">Select an overlay with an image and set its position.</span>`;
         totalPercentageEl.textContent = 'N/A';
         return;
     }
@@ -2367,7 +2367,7 @@ async function updateOverlayProgress() {
     const coords = ov.pixelUrl ? extractPixelCoords(ov.pixelUrl) : { chunk1: '-', chunk2: '-', posX: '-', posY: '-' };
     $('op-coord-display').textContent = ov.pixelUrl
       ? `Ref: chunk ${coords.chunk1}/${coords.chunk2} at (${coords.posX}, ${coords.posY})`
-      : `No anchor has been set. Activate “Set Anchor” and click on a pixel.`;
+      : `No anchor has been set. Activate “Set Position” and click on a pixel.`;
 
     $('op-opacity-slider').value = String(ov.opacity);
     $('op-opacity-value').textContent = Math.round(ov.opacity * 100) + '%';
@@ -2380,8 +2380,8 @@ async function updateOverlayProgress() {
     const $ = (id) => document.getElementById(id);
 
     const { copyPointA: pA, copyPointB: pB, isSettingCopyPoint, copyPreviewActive } = config;
-    $('op-copy-a-coords').textContent = pA ? `(${pA.absX}, ${pA.absY})` : 'No fijado';
-    $('op-copy-b-coords').textContent = pB ? `(${pB.absX}, ${pB.absY})` : 'No fijado';
+    $('op-copy-a-coords').textContent = pA ? `(${pA.absX}, ${pA.absY})` : 'Not set';
+    $('op-copy-b-coords').textContent = pB ? `(${pB.absX}, ${pB.absY})` : 'Not set';
 
     const btnA = $('op-copy-set-a');
     const btnB = $('op-copy-set-b');
@@ -2449,7 +2449,7 @@ function updateUI() {
     const collapsed = !!config.isPanelCollapsed;
     content.style.display = collapsed ? 'none' : 'flex';
     toggle.textContent = collapsed ? '▸' : '▾';
-    toggle.title = collapsed ? 'Expandir' : 'Plegar';
+    toggle.title = collapsed ? 'Expand' : 'Collapse';
 
     const showOverlayBtn = $('op-show-overlay-toggle');
     showOverlayBtn.textContent = `Overlay: ${config.showOverlay ? 'ON' : 'OFF'}`;
@@ -2538,7 +2538,7 @@ function updateUI() {
 
     modal.innerHTML = `
       <div class="op-cc-header" id="op-cc-header">
-        <div class="op-cc-title">Ajuste de Color</div>
+        <div class="op-cc-title">Color Adjustment</div>
         <div class="op-row" style="gap:6px;">
           <button class="op-button op-cc-pill" id="op-cc-realtime" title="Enable/Disable real-time calculation when changing the palette.">Live: OFF</button>
           <button class="op-cc-close" id="op-cc-close" title="Close">✕</button>
@@ -2958,7 +2958,7 @@ function updateUI() {
             <label for="op-rs-grid">Show grid</label>
           </div>
 
-          <div class="op-rs-grid-note" id="op-rs-adv-note">Align the red dots with the center of the blocks. Drag to move; use the buttons or Ctrl + scroll wheel to zoom.</div>
+          <div class="op-rs-grid-note" id="op-rs-adv-note">Align the red dots with the center of the pixel. Drag to move; use the buttons or Ctrl + scroll wheel to zoom.</div>
 
           <div class="op-rs-row" style="margin-top:8px;">
             <label style="width:160px;">Preview</label>
@@ -3028,14 +3028,14 @@ function updateUI() {
     const computeAdvancedFooterText = () => {
       const { cols, rows } = sampleDims();
       const limit = (cols >= MAX_OVERLAY_DIM || rows >= MAX_OVERLAY_DIM);
-      return (cols>0 && rows>0) ? `Samples: ${cols} × ${rows} | Output: ${cols}×${rows}${limit ? ` (exceeds limit: < ${MAX_OVERLAY_DIM}×${MAX_OVERLAY_DIM})` : ‘’}` : 'Adjust multiplier/offset until points are centered.';
+      return (cols>0 && rows>0) ? `Samples: ${cols} × ${rows} | Output: ${cols}×${rows}${limit ? ` (exceeds limit: < ${MAX_OVERLAY_DIM}×${MAX_OVERLAY_DIM})` : ``}` : 'Adjust multiplier/offset until points are centered.';
     };
     const updateFooterMeta = () => { rs.meta.textContent = (rs.mode === 'advanced') ? computeAdvancedFooterText() : computeSimpleFooterText(); };
     const syncSimpleNote = () => {
       const W = parseInt(rs.w.value||'0',10), H = parseInt(rs.h.value||'0',10);
       const ok = Number.isFinite(W) && Number.isFinite(H) && W>0 && H>0;
       const limit = (W >= MAX_OVERLAY_DIM || H >= MAX_OVERLAY_DIM);
-      const simpleText = ok ? (limit ? `Target: ${W}×${H} (exceeds limit: < ${MAX_OVERLAY_DIM}×${MAX_OVERLAY_DIM})` : `Target: ${W}×${H} (OK)`) : 'Enter a positive width and height.';
+      const simpleText = ok ? (limit ? `${W}×${H} (exceeds limit: < ${MAX_OVERLAY_DIM}×${MAX_OVERLAY_DIM})` : `Target: ${W}×${H} (OK)`) : 'Enter a positive width and height.';
       if (rs.note) rs.note.textContent = simpleText;
       if (rs.mode === 'simple') rs.applyBtn.disabled = (!ok || limit);
       if (rs.mode === 'simple') rs.meta.textContent = simpleText;
@@ -3176,7 +3176,7 @@ function updateUI() {
       ctxRes.clearRect(0,0,dW,dH);
       ctxRes.drawImage(canvas, 0,0, W,H, 0,0, dW,dH);
       ctxRes.restore();
-      rs.resMeta.textContent = `Output: ${W}×${H}${(W>=MAX_OVERLAY_DIM||H>=MAX_OVERLAY_DIM) ? ` (exceeds limit: < ${MAX_OVERLAY_DIM}×${MAX_OVERLAY_DIM})` : "}`;
+      rs.resMeta.textContent = `${W}×${H}${(W >= MAX_OVERLAY_DIM || H >= MAX_OVERLAY_DIM)? ` (exceeds limit: < ${MAX_OVERLAY_DIM}×${MAX_OVERLAY_DIM})`: ''}`;
     }
     rs._drawSimplePreview = drawSimplePreview; rs._drawAdvancedPreview = drawAdvancedPreview; rs._drawAdvancedResultPreview = drawAdvancedResultPreview;
     const setMode = (m) => {
