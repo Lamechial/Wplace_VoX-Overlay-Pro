@@ -1478,7 +1478,7 @@ function rebuildOverlayListUI() {
 
     trashBtn.addEventListener('click', async (e) => {
       e.stopPropagation();
-      if (!confirm(`Do you wish to remove the overlay for "${ov.name || '(untitled)'}"?`)) return;
+      if (!confirm(`Do you wish to delete the overlay for "${ov.name || '(untitled)'}"?`)) return;
       const idx = config.overlays.findIndex(o => o.id === ov.id);
       if (idx >= 0) {
         config.overlays.splice(idx, 1);
